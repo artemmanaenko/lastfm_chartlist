@@ -24,5 +24,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:19.+'
     compile 'com.loopj.android:android-async-http:1.4.5'
     compile 'de.greenrobot:eventbus:2.2.1'
+    compile 'com.squareup.picasso:picasso:2.3.3'
     compile files('libs/gson-2.2.4.jar')
 }

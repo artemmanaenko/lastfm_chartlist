@@ -29,4 +29,5 @@ public class CountryChartAction extends BaseServerAction {
     public Class getResponseParseClass() {
         return CountryChartResponse.class;
     }
+
 }

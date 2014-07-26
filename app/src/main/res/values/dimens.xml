@@ -1,2 +1,10 @@
 <resources>
+    <dimen name="list_item_padding">10dp</dimen>
+    <dimen name="rank_text_size">24sp</dimen>
+    <dimen name="name_text_size">20sp</dimen>
+    <dimen name="listeners_text_size">20sp</dimen>
+    <dimen name="list_divider_height">2dp</dimen>
+    <dimen name="list_item_image_size">50dp</dimen>
+    <dimen name="list_padding">5dp</dimen>
+    <dimen name="state_text_size">22sp</dimen>
 </resources>

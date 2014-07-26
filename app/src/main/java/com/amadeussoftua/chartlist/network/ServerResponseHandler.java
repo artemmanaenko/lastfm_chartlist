@@ -48,7 +48,7 @@ public class ServerResponseHandler extends JsonHttpResponseHandler {
 
     @Override
     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-        onFailure(statusCode, headers, errorResponse.toString(), throwable);
+        EventBus.getDefault().post(new ServerProblemEvent());
     }
 
     @Override
@@ -82,14 +82,6 @@ public class ServerResponseHandler extends JsonHttpResponseHandler {
             }).start();
         }
     }
-
-    @Override
-    public void onFailure(final int statusCode, final Header[] headers, final String responseBody, final Throwable e) {
-        String url = NetworkManager.SERVER_URL + serverAction.getAction();
-        Debug.logE("ServerTime", "Request " + url + " [FAILED], statusCode=" + statusCode);
-        EventBus.getDefault().post(new ServerProblemEvent());
-    }
-
 
     protected BaseServerResponse parseResponse(String responseBody) {
         Class clazz = serverAction.getResponseParseClass();

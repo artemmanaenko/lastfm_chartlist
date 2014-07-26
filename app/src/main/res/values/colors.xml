@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="rank_text_color">#fff</color>
+    <color name="list_divider_color">#888</color>
+    <color name="list_background">#000</color>
+    <color name="name_text_color">#d3ff3d</color>
+    <color name="listeners_text_color">#ffc900</color>
+    <color name="state_text_color">#fff</color>
+
+</resources>

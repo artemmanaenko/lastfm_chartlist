@@ -20,4 +20,19 @@ public class Artist {
         return images;
     }
 
+    public int getListeners() {
+        return listeners;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public ArtistAttribute getRank() {
+        return rank;
+    }
 }
