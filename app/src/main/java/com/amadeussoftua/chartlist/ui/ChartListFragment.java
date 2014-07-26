@@ -27,6 +27,8 @@ import de.greenrobot.event.EventBus;
  */
 public class ChartListFragment extends ListFragment {
 
+    public static final String EXTRAS_KEY_COUNTRY = "key_country";
+
     private ChartListAdapter adapter;
     private TextView stateTextView;
 
@@ -77,11 +79,26 @@ public class ChartListFragment extends ListFragment {
         super.onActivityCreated(savedInstanceState);
         initEmptyView();
         initAdapter();
-        NetworkManager.getInstance(getActivity()).requestWorldChartList();
+        loadData();
+    }
+
+    private void loadData() {
+        setLoadingState();
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            String country = arguments.getString(EXTRAS_KEY_COUNTRY);
+            if ("World".equals(country))
+                NetworkManager.getInstance(getActivity()).requestWorldChartList();
+            else
+                NetworkManager.getInstance(getActivity()).requestChartListByCountry(country);
+        }
     }
 
     private void initEmptyView() {
         stateTextView = (TextView) getView().findViewById(android.R.id.empty);
+    }
+
+    private void setLoadingState(){
         stateTextView.setText(getString(R.string.loading));
     }
 
@@ -89,6 +106,10 @@ public class ChartListFragment extends ListFragment {
         adapter = new ChartListAdapter(getActivity());
         getListView().setAdapter(adapter);
         getListView().setOnItemClickListener(itemClickListener);
+    }
+
+    public void refresh(){
+        loadData();
     }
 
     private AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {

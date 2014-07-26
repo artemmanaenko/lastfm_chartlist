@@ -14,6 +14,7 @@ public class Artist {
     private int listeners;
     private String url;
     private String name;
+    @SerializedName("@attr")
     private ArtistAttribute rank;
 
     public List<Image> getImages() {
