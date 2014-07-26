@@ -1,6 +1,8 @@
 package com.amadeussoftua.chartlist.network;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import com.amadeussoftua.chartlist.Debug;
 import com.amadeussoftua.chartlist.network.actions.BaseServerAction;
@@ -70,6 +72,13 @@ public class NetworkManager {
         builder.append("Request started [ " + url + " ]");
         builder.append("\n~~~~~~> Params: ").append(String.valueOf(params));
         Debug.logD(TAG, builder.toString());
+    }
+
+    public boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo info = connectivityManager.getActiveNetworkInfo();
+        boolean isConnected = info != null && info.isConnected();
+        return isConnected;
     }
 
 }

@@ -11,6 +11,8 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.amadeussoftua.chartlist.R;
+import com.amadeussoftua.chartlist.events.ConnectionLostEvent;
+import com.amadeussoftua.chartlist.events.NetworkConnectedEvent;
 import com.amadeussoftua.chartlist.events.ServerProblemEvent;
 import com.amadeussoftua.chartlist.network.NetworkManager;
 import com.amadeussoftua.chartlist.network.actions.CountryChartAction;
@@ -69,6 +71,15 @@ public class ChartListFragment extends ListFragment {
         processServerError(getString(R.string.server_problem));
     }
 
+
+    public void onEvent(ConnectionLostEvent action) {
+        processServerError(getString(R.string.no_internet_connection));
+    }
+
+    public void onEvent(NetworkConnectedEvent action) {
+        loadData();
+    }
+
     private void processServerError(String message) {
         stateTextView.setText(message);
         adapter.clearItems();
@@ -83,14 +94,18 @@ public class ChartListFragment extends ListFragment {
     }
 
     private void loadData() {
-        setLoadingState();
-        Bundle arguments = getArguments();
-        if (arguments != null) {
-            String country = arguments.getString(EXTRAS_KEY_COUNTRY);
-            if ("World".equals(country))
-                NetworkManager.getInstance(getActivity()).requestWorldChartList();
-            else
-                NetworkManager.getInstance(getActivity()).requestChartListByCountry(country);
+        if(NetworkManager.getInstance(getActivity()).isNetworkAvailable()){
+            setLoadingState();
+            Bundle arguments = getArguments();
+            if (arguments != null) {
+                String country = arguments.getString(EXTRAS_KEY_COUNTRY);
+                if ("World".equals(country))
+                    NetworkManager.getInstance(getActivity()).requestWorldChartList();
+                else
+                    NetworkManager.getInstance(getActivity()).requestChartListByCountry(country);
+            }
+        } else {
+            processServerError(getString(R.string.no_internet_connection));
         }
     }
 
@@ -98,7 +113,7 @@ public class ChartListFragment extends ListFragment {
         stateTextView = (TextView) getView().findViewById(android.R.id.empty);
     }
 
-    private void setLoadingState(){
+    private void setLoadingState() {
         stateTextView.setText(getString(R.string.loading));
     }
 
@@ -106,10 +121,6 @@ public class ChartListFragment extends ListFragment {
         adapter = new ChartListAdapter(getActivity());
         getListView().setAdapter(adapter);
         getListView().setOnItemClickListener(itemClickListener);
-    }
-
-    public void refresh(){
-        loadData();
     }
 
     private AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {

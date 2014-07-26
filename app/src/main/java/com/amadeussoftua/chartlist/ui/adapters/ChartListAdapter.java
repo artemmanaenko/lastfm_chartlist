@@ -57,8 +57,12 @@ public class ChartListAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) view.getTag();
         }
         Artist artist = (Artist) getItem(position);
-        if (artist.getRank() != null)
+        if (artist.getRank() != null) {
+            viewHolder.rank.setVisibility(View.VISIBLE);
             viewHolder.rank.setText(Integer.toString(artist.getRank().getRank()));
+        } else{
+            viewHolder.rank.setVisibility(View.GONE);
+        }
         viewHolder.name.setText(artist.getName());
         viewHolder.listeners.setText(context.getString(R.string.item_listeners) + artist.getListeners());
         String imageUrl = artist.getImages().get(MEDIUM_IMAGE_INDEX).getUrl();

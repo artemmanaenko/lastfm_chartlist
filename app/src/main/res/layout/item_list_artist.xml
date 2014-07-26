@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="@dimen/list_item_padding">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:padding="@dimen/list_item_padding">
 
     <TextView
         android:id="@+id/artist_rank"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/list_item_padding"
+        android:ems="1"
         android:textColor="@color/rank_text_color"
-        android:textSize="@dimen/rank_text_size"
-        android:layout_marginRight="@dimen/list_item_padding"/>
+        android:textSize="@dimen/rank_text_size"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/artist_image"
-        android:layout_alignTop="@+id/artist_image"
-        android:layout_toLeftOf="@+id/artist_image"
-        android:layout_toRightOf="@+id/artist_rank"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <TextView
@@ -47,7 +45,6 @@
         android:id="@+id/artist_image"
         android:layout_width="@dimen/list_item_image_size"
         android:layout_height="@dimen/list_item_image_size"
-        android:layout_alignParentRight="true"
         android:scaleType="centerCrop"/>
 
-</RelativeLayout>
+</LinearLayout>
