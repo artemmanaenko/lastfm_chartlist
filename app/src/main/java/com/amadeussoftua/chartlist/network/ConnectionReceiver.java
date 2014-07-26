@@ -20,11 +20,11 @@ public class ConnectionReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = connectivityManager.getActiveNetworkInfo();
-        boolean isConnected = info != null && info.isConnectedOrConnecting();
+        boolean isConnected = info != null && info.isConnected();
         if (isConnected) {
-            EventBus.getDefault().post(new ConnectionLostEvent());
-        } else {
             EventBus.getDefault().post(new NetworkConnectedEvent());
+        } else {
+            EventBus.getDefault().post(new ConnectionLostEvent());
         }
 
     }
